@@ -9,6 +9,12 @@ Use this Playground to experiment with the Canvas class.
 Have fun!
 
 */
+var asdf = arc4random_uniform (20) + 20
+print (asdf)
+
+
+
+
 
 // Create a new canvas
 let canvas = Canvas(width: 500, height: 500)
