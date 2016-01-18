@@ -9,12 +9,6 @@ Use this Playground to experiment with the Canvas class.
 Have fun!
 
 */
-var asdf = arc4random_uniform (20) + 20
-print (asdf)
-
-
-
-
 
 // Create a new canvas
 let canvas = Canvas(width: 500, height: 500)
@@ -31,15 +25,6 @@ canvas.drawEllipse(centreX: canvas.width/2, centreY: canvas.height/2, width: 50,
 
 // View the current state of the canvas
 canvas
-
-canvas.fillColor = Color(hue: 10, saturation: 20, brightness: 30, alpha: 40)
-canvas.drawRectangle(bottomRightX: 250, bottomRightY: 250, width: 250, height: 250, borderWidth: 10)
-canvas.borderColor = Color(hue: 50, saturation: 100, brightness: 12, alpha: 10)
-canvas.fillColor
-
-canvas
-
-
 
 // Draw a rectangle with red fill and thick green border in bottom left corner of canvas
 canvas.fillColor = Color(hue: 0, saturation: 80, brightness: 90, alpha: 100)

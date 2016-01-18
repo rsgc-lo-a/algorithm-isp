@@ -1,76 +1,84 @@
 import Foundation
 
-class Sketch {
-    
+class Sketch : NSObject {
+
     // NOTE: Every sketch must contain an object of type Canvas named 'canvas'
     //       Therefore, the line immediately below must always be present.
     let canvas : Canvas
     
-    //Random number generator with a variable (repeated)
-
-    var random = Int(arc4random_uniform(500))
-  
-    //variable that is going to increase
+    // Declare any properties you need for your sketch below this comment, but before init()
     var x = 0
-    var y = 0
-    
-    //Variable that is going to decrease
-    var negx = 0
-    var negy = 0
-    var maxX = 500
-    var maxY = 500
-    
+    var s = 1
+    var backgroundRed : Bool = false // Boolean to toggle whether background is red
+
     // This runs once, equivalent to setup() in Processing
-    init() {
+    override init() {
         
         // Create canvas object – specify size
-        canvas = Canvas(width: 500, height: 500)
+        canvas = Canvas(width: 500, height: 300)
         
         // The frame rate can be adjusted; the default is 60 fps
         canvas.framesPerSecond = 60
-     }
+        
+    }
     
     // Runs repeatedly, equivalent to draw() in Processing
     func draw() {
-    
+                
+        // Horizontal position of circle
+        x = x + s
         
-        //Self increasing variables
-        x = x + 5
-        y = y + 5
+        // Bounce when hitting wall
+        if (x > canvas.width || x < 0) {
+            s *= -1
+        }
         
-        negx = negx - 5
-        negy = negy - 5
-        maxX = maxX - 5
-        maxY = maxY - 5
-        
-        // Clear the background
-        //Create a rectangle with the given canvas size
-        
+        // "Clear" the background
         canvas.drawShapesWithBorders = false
-        canvas.fillColor = Color(hue: 0, saturation: 0, brightness: 0, alpha: 100)
+        canvas.fillColor = Color(hue: 0, saturation: 0, brightness: 0, alpha: 10)
+        // Decide what color to make the background
+        if (backgroundRed == true) {
+            canvas.fillColor = Color(hue: 0, saturation: 80, brightness: 90, alpha: 100)
+        } else {
+            canvas.fillColor = Color(hue: 0, saturation: 0, brightness: 0, alpha: 10)
+        }
         canvas.drawRectangle(bottomRightX: 0, bottomRightY: 0, width: canvas.width, height: canvas.height)
         
-        //Draw the Rectangle and place it in the centre of the canvas
-        canvas.drawShapesWithBorders = false
-        canvas.fillColor = Color(hue: 100, saturation: 100, brightness: 100, alpha: 100)
-        canvas.drawRectangle(bottomRightX: canvas.width / 2, bottomRightY: canvas.height / 2, width: 25, height: 25)
         
-        //Going right from the left
-        //Draw a circle to represent, random location
-        //canvas.drawEllipse(centreX: x, centreY:random, width: 30, height: 30)
-       
-        //Going upward from the botto
-        //Draw a circle to represent, random location
-     //canvas.drawEllipse(centreX:random, centreY:y, width: 30, height: 30)
-//        
-//        Going left from the right
-//        //Draw a circle to represent, random location if
-        canvas.drawEllipse(centreX: maxX , centreY: random, width: 30, height: 30)
-//
-//        
-//        //Draw a circle to represent, random location
-//        canvas.drawEllipse(centreX:random4 + x, centreY:random4 + y, width: 30, height: 30)
-//
+        // Draw a circle that moves across the screen
+        canvas.drawShapesWithBorders = false
+        canvas.fillColor = Color(hue: Float(canvas.frameCount), saturation: 80, brightness: 90, alpha: 100)
+        canvas.drawEllipse(centreX: x, centreY: canvas.height / 2, width: 25, height: 25)
+        
+        // Draw some text on the screen
+        canvas.textColor = Color(hue: 0, saturation: 0, brightness: 100, alpha: 100) // white
+        canvas.drawText(message: "Hello, world!")
+        
+        // Draw some more text on the screen
+        canvas.textColor = Color(hue: 60, saturation: 80, brightness: 90, alpha: 100) // yellow
+        canvas.drawText(message: "Current frame: \(canvas.frameCount)", size: 12, x: canvas.width / 16, y: canvas.height - canvas.height / 8)
+
+        // Text with emoji works too
+        canvas.drawText(message: "😜", size: 48, x: canvas.width - canvas.width / 4, y: canvas.height - canvas.height / 4)
+        
+        // Draw a circle where the mouse pointer is
+        canvas.drawShapesWithBorders = false
+        canvas.drawShapesWithFill = true
+        canvas.fillColor = Color(hue: 0, saturation: 0, brightness: 100, alpha: 100)
+        canvas.drawEllipse(centreX: Int(canvas.mouseX), centreY: Int(canvas.mouseY), width: 5, height: 5)
+
+    }
+    
+    // Respond to the mouseDown event
+    func mouseDown() {
+        
+        // When the mouse is pressed, change the background color that will be used.
+        if backgroundRed == true {
+            backgroundRed = false
+        } else {
+            backgroundRed = true
+        }
+        
     }
     
 }
