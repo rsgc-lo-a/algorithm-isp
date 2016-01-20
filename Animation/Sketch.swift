@@ -30,7 +30,6 @@ class Sketch : NSObject {
         
         // The frame rate can be adjusted; the default is 60 fps
         canvas.framesPerSecond = 60
-        
     }
     
     // Runs repeatedly, equivalent to draw() in Processing
@@ -45,16 +44,24 @@ class Sketch : NSObject {
         maxX = maxX - 5
         maxY = maxY - 5
         
+
         
         canvas.drawShapesWithBorders = false
         canvas.fillColor = Color(hue: 0, saturation: 0, brightness: 0, alpha: 100)
         canvas.drawRectangle(bottomRightX: 0, bottomRightY: 0, width: canvas.width, height: canvas.height)
         
+        
         //Draw the Rectangle and place it in the centre of the canvas
         //Change the value into the mouseX & mouseY (Fiddle with it and make it the center of the mouse
         canvas.drawShapesWithBorders = false
         canvas.fillColor = Color(hue: 100, saturation: 100, brightness: 100, alpha: 100)
-        canvas.drawRectangle(bottomRightX: canvas.width / 2, bottomRightY: canvas.height / 2, width: 25, height: 25)
+        canvas.drawRectangle(bottomRightX: Int(canvas.mouseX), bottomRightY: Int(canvas.mouseY), width: 25, height: 25)
+        
+        print(canvas.mouseX)
+        print(canvas.mouseY)
+        
+        
+        
         
 //        // Horizontal position of circle
 //        x = x + s
@@ -102,7 +109,7 @@ class Sketch : NSObject {
     
     // Respond to the mouseDown event
     func mouseDown() {
-        
+//
 //        // When the mouse is pressed, change the background color that will be used.
 //        if backgroundRed == true {
 //            backgroundRed = false
